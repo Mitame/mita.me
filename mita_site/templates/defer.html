@@ -1,0 +1,54 @@
+{% macro js(script_srcs) -%}
+  <script type="text/javascript">
+
+    function load_defered_js() {
+      srcs = [
+        "{{ '","'.join(script_srcs)|safe}}"
+      ];
+      for (i in srcs) {
+        let element = document.createElement("script");
+        element.type = "text/javascript";
+        element.src = srcs[i];
+        document.body.appendChild(element);
+      }
+    }
+
+    if (window.addEventListener)
+      window.addEventListener("load", load_defered_js, false);
+    else if (window.attachEvent)
+      window.attachEvent("onload", load_defered_js);
+    else
+      window.onload = load_defered_js;
+
+  </script>
+{%- endmacro %}
+
+{% macro css(style_hrefs) -%}
+  <script type="text/javascript">
+
+    function load_defered_css() {
+      hrefs = [
+        "{{ '","'.join(style_hrefs)|safe}}"
+      ];
+      for (i in hrefs) {
+        let element = document.createElement("link");
+
+        console.log(element)
+        element.type = "text/css";
+        element.rel = "stylesheet";
+        element.media = "screen,projection";
+
+        element.href = hrefs[i];
+        document.body.appendChild(element);
+      }
+    }
+
+    if (window.addEventListener)
+      window.addEventListener("load", load_defered_css, false);
+    else if (window.attachEvent)
+      window.attachEvent("onload", load_defered_css);
+    else
+      window.onload = load_defered_css;
+
+  </script>
+{%- endmacro %}

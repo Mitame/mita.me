@@ -1,0 +1,61 @@
+{% import "defer.html" as defer %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% block html %}
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+  <title>Emati Mitame</title>
+  <link rel="shortcut icon" href="{{ url_for("static", filename="image/icon/favicon.ico") }}">
+
+  {{
+    defer.css([url_for("static", filename="css/materialize.min.css")])
+  }}
+  {{
+    defer.js([
+      url_for("static", filename="js/jquery-3.0.0.min.js"),
+      url_for("static", filename="js/materialize.min.js")
+    ])
+  }}
+</head>
+
+<body>
+  {% block body %}
+  <nav class="light-blue lighten-1" role="navigation">
+    {% block nav %}
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{{ url_for("index") }}" class="brand-logo">
+        <img src="{{ url_for("static", filename="image/icon/icon.png") }}"/>
+      </a>
+
+      <ul class="right hide-on-med-and-down">
+        {% for nav in navbar_links %}
+          <li>
+            <a href="{{ nav["href"] }}">{{ nav["text"] }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+        {% for nav in navbar_links %}
+          <li>
+            <a href="{{ nav["href"] }}">{{ nav["text"] }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <a href="#" data-activates="nav-mobile" class="button-collapse">
+        <i class="material-icons">menu</i>
+      </a>
+    </div>
+    {% endblock nav %}
+  </nav>
+
+  <div class="container">
+    {% block data %}
+    {% endblock data %}
+  </div>
+  {% endblock body %}
+</body>
+{% endblock html %}
+</html>
